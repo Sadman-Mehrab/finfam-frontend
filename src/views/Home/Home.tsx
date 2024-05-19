@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
+import { Navbar } from "../../components";
 
 const Home = () => {
   return (
-    <div>
-      <p>home is where R is, but dashboard is:</p>
-      <Link className="btn btn-circle" to="/dashboard">here</Link>
-    </div>
+    <>
+      <Navbar />
+    </>
   );
 };
 
