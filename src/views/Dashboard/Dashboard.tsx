@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FamilyCard, ProtectedRoute, UserNavbar } from "../../components";
+import {
+  CreateFamilyModal,
+  FamilyCard,
+  ProtectedRoute,
+  UserNavbar,
+} from "../../components";
 
 const Dashboard = () => {
   const [families, setFamilies] = useState([]);
 
+  const [refreshFamilyList, setRefreshFamilyList] = useState(false);
+
+  const handleRefreshFamilyList = () => {
+    setRefreshFamilyList((refreshFamilyList) => !refreshFamilyList);
+  };
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     const fetchFamilies = async () => {
@@ -20,7 +30,7 @@ const Dashboard = () => {
       }
     };
     fetchFamilies();
-  }, []);
+  }, [refreshFamilyList]);
 
   return (
     <ProtectedRoute>
@@ -28,8 +38,11 @@ const Dashboard = () => {
         <UserNavbar />
         <div className="p-10">
           <div>
-            <h1 className="text-3xl">Families:</h1>
-            <div className="py-10 flex flex-row space-x-10">
+            <div className="flex flex-row justify-between">
+              <h1 className="text-3xl">Families:</h1>
+              <CreateFamilyModal onFamilyAdd={handleRefreshFamilyList} />
+            </div>
+            <div className="py-10 grid grid-cols-3 gap-10">
               {families.map((family, index) => (
                 <FamilyCard key={index} family={family} />
               ))}

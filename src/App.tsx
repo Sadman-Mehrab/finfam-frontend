@@ -4,6 +4,7 @@ import { Dashboard } from "./views/Dashboard";
 import { Login } from "./views/Login";
 import { Toaster } from "react-hot-toast";
 import { Register } from "./views/Register";
+import { Family } from "./views/Family";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/families/:familyId" element={<Family />} />
         </Routes>
       </BrowserRouter>
     </>

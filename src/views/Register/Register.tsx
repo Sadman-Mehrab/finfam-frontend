@@ -26,7 +26,7 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       toast.error("Registration failure! Username or Email already exists.");
-      console.error(error);
+      console.log("Failed to register:" + error);
     }
   };
 

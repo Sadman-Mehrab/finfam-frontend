@@ -25,7 +25,7 @@ const Login = () => {
       navigate("/dashboard");
     } catch (error) {
       toast.error("Log in failure! Check your credentials");
-      console.error(error);
+      console.log("Failed to login:" + error);
     }
   };
 
