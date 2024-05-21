@@ -1,5 +1,13 @@
+import ProtectedRoute from '../../components/ProtectedRoute';
+
 const Dashboard = () => {
-  return <div>Dashboard is where O is</div>;
+  return (
+    <>
+    <ProtectedRoute>
+      <div>Dashboard</div>
+    </ProtectedRoute>
+    </>
+  );
 };
 
 export default Dashboard;
