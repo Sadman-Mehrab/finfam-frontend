@@ -4,7 +4,7 @@ import AvatarGroup from "./AvatarGroup";
 
 const FamilyCard = ({ family }: { family: any }) => {
   return (
-    <Link className="w-96" to={`/families/${family._id}`}>
+    <Link className="transform transition hover:-translate-y-1 w-96" to={`/families/${family._id}`}>
       <div className="card w-96 bg-base-100 shadow-xl image-full">
         <figure>
           <FamilyAvatar familyName={family.name} />
@@ -16,7 +16,7 @@ const FamilyCard = ({ family }: { family: any }) => {
             {family.createdAt.slice(0, 10)}
           </p>
           <div className="card-actions justify-end">
-            <AvatarGroup members={family.members} />
+            <AvatarGroup members={family.members || []} />
           </div>
         </div>
       </div>

@@ -4,8 +4,8 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <Link className="btn btn-ghost text-xl" to="/">
-          🏦 fin-fam
+        <Link className="btn btn-ghost text-2xl" to="/">
+          🏡 fin-fam
         </Link>
       </div>
       <div className="flex-none">

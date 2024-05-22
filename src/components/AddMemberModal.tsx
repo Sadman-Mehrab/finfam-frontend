@@ -2,35 +2,33 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const CreateGoalModal = ({
-  onGoalAdd,
+const AddMemberModal = ({
   familyId,
+  onMemberAdd,
 }: {
-  onGoalAdd: any;
   familyId: string;
+  onMemberAdd: any;
 }) => {
-  const [name, setName] = useState("");
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [memberUserName, setMemberUserName] = useState("");
 
   const showModal = () => {
     // @ts-ignore
-    document.getElementById("createGoalModal").showModal();
+    document.getElementById("addMemberModal").showModal();
   };
 
   const closeModal = () => {
     // @ts-ignore
-    document.getElementById("createGoalModal").close();
-    setName("");
-    setTotalAmount(0);
+    document.getElementById("addMemberModal").close();
+    setMemberUserName("");
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const token = localStorage.getItem("access_token");
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/goals",
-        { name, totalAmount, familyId },
+      const response = await axios.patch(
+        `http://localhost:3000/api/families/join/${familyId}`,
+        { memberUserName },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,11 +36,11 @@ const CreateGoalModal = ({
         }
       );
       closeModal();
-      onGoalAdd();
+      onMemberAdd();
       toast.success("Added!");
     } catch (error) {
-      toast.error("Failure! Re-check the information");
-      console.log(error);
+      toast.error("Failure! Make sure that the user exists");
+      console.error(error);
     }
   };
   return (
@@ -52,12 +50,12 @@ const CreateGoalModal = ({
         // @ts-ignore
         onClick={showModal}
       >
-        + New Goal
+        + New Member
       </button>
-      <dialog id="createGoalModal" className="modal">
+      <dialog id="addMemberModal" className="modal">
         <div className="modal-box">
           <div className="flex flex-row justify-between">
-            <h3 className="font-bold text-lg">Create New Goal</h3>
+            <h3 className="font-bold text-lg">Add New Member</h3>
             <button className="text-red-400" onClick={closeModal}>
               Close
             </button>
@@ -68,30 +66,16 @@ const CreateGoalModal = ({
           >
             <label className="form-control">
               <div className="label">
-                <span className="label-text">Name</span>
+                <span className="label-text">Username</span>
               </div>
               <input
                 type="text"
-                name="name"
-                id="name"
+                name="memberUserName"
+                id="memberUserName"
                 className="input input-bordered"
-                value={name}
+                value={memberUserName}
                 required
-                onChange={(e) => setName(e.target.value)}
-              />
-            </label>
-            <label className="form-control">
-              <div className="label">
-                <span className="label-text">Total Amount</span>
-              </div>
-              <input
-                type="number"
-                name="totalAmount"
-                id="totalAmount"
-                className="input input-bordered"
-                value={totalAmount}
-                required
-                onChange={(e) => setTotalAmount(+(e.target.value))}
+                onChange={(e) => setMemberUserName(e.target.value)}
               />
             </label>
 
@@ -105,4 +89,4 @@ const CreateGoalModal = ({
   );
 };
 
-export default CreateGoalModal;
+export default AddMemberModal;

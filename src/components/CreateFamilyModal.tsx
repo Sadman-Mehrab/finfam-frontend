@@ -34,7 +34,7 @@ const CreateFamilyModal = ({ onFamilyAdd }: { onFamilyAdd: any }) => {
       toast.success("Added!");
     } catch (error) {
       toast.error("Failure! Re-check the information");
-      console.error(error);
+      console.log(error);
     }
   };
   return (
@@ -44,7 +44,7 @@ const CreateFamilyModal = ({ onFamilyAdd }: { onFamilyAdd: any }) => {
         // @ts-ignore
         onClick={showModal}
       >
-        + New
+        + New Family
       </button>
       <dialog id="createFamilyModal" className="modal">
         <div className="modal-box">

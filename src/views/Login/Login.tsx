@@ -9,6 +9,11 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    navigate("/dashboard");
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -32,7 +37,7 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center">
+      <div className="flex justify-center py-28">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-4 rounded-box p-6 max-w-md "

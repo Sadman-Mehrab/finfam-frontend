@@ -1,27 +1,27 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
-const CreateGoalModal = ({
-  onGoalAdd,
-  familyId,
+const CreateContributionModal = ({
+  onContributionAdd,
+  goalId,
 }: {
-  onGoalAdd: any;
-  familyId: string;
+  onContributionAdd: any;
+  goalId: string;
 }) => {
-  const [name, setName] = useState("");
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [amount, setAmount] = useState(0);
+
+  const modalId = `createContributionModal-${goalId}`;
 
   const showModal = () => {
     // @ts-ignore
-    document.getElementById("createGoalModal").showModal();
+    document.getElementById(modalId).showModal();
   };
 
   const closeModal = () => {
     // @ts-ignore
-    document.getElementById("createGoalModal").close();
-    setName("");
-    setTotalAmount(0);
+    document.getElementById(modalId).close();
+    setAmount(0);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -29,8 +29,8 @@ const CreateGoalModal = ({
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/goals",
-        { name, totalAmount, familyId },
+        "http://localhost:3000/api/contributions",
+        { amount, goalId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,26 +38,26 @@ const CreateGoalModal = ({
         }
       );
       closeModal();
-      onGoalAdd();
+      onContributionAdd();
       toast.success("Added!");
     } catch (error) {
-      toast.error("Failure! Re-check the information");
+      toast.error("Contribution amount exceeds total amount");
       console.log(error);
     }
   };
   return (
     <div>
       <button
-        className="btn btn-accent"
+        className="btn btn-primary "
         // @ts-ignore
         onClick={showModal}
       >
-        + New Goal
+        Contribute
       </button>
-      <dialog id="createGoalModal" className="modal">
+      <dialog id={modalId} className="modal">
         <div className="modal-box">
           <div className="flex flex-row justify-between">
-            <h3 className="font-bold text-lg">Create New Goal</h3>
+            <h3 className="font-bold text-lg">Contribute To Goal</h3>
             <button className="text-red-400" onClick={closeModal}>
               Close
             </button>
@@ -66,37 +66,24 @@ const CreateGoalModal = ({
             onSubmit={handleSubmit}
             className="flex flex-col gap-4 rounded-box p-6 max-w-md "
           >
+
             <label className="form-control">
               <div className="label">
-                <span className="label-text">Name</span>
-              </div>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="input input-bordered"
-                value={name}
-                required
-                onChange={(e) => setName(e.target.value)}
-              />
-            </label>
-            <label className="form-control">
-              <div className="label">
-                <span className="label-text">Total Amount</span>
+                <span className="label-text">Amount</span>
               </div>
               <input
                 type="number"
-                name="totalAmount"
-                id="totalAmount"
+                name="amount"
+                id="amount"
                 className="input input-bordered"
-                value={totalAmount}
+                value={amount}
                 required
-                onChange={(e) => setTotalAmount(+(e.target.value))}
+                onChange={(e) => setAmount(+(e.target.value))}
               />
             </label>
 
             <button type="submit" className="btn btn-primary">
-              Add
+              Add 
             </button>
           </form>
         </div>
@@ -105,4 +92,4 @@ const CreateGoalModal = ({
   );
 };
 
-export default CreateGoalModal;
+export default CreateContributionModal;

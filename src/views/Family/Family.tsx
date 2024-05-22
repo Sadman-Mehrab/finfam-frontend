@@ -1,37 +1,56 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { CreateGoalModal, ProtectedRoute, UserNavbar } from "../../components";
+import {
+  AddMemberModal,
+  AvatarGroup,
+  CreateGoalModal,
+  ProtectedRoute,
+  UserNavbar,
+  GoalCard,
+} from "../../components";
 import { useParams } from "react-router-dom";
-import GoalCard from "../../components/GoalCard";
 
 const Family = () => {
   const { familyId } = useParams();
+  const [family, setFamily] = useState({});
   const [goals, setGoals] = useState([]);
 
-  const [refreshGoalList, setRefreshGoalList] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const [goalRefresh, setGoalRefresh] = useState(false);
 
-  const handleRefreshGoalList = () => {
-    setRefreshGoalList((refreshGoalList) => !refreshGoalList);
+  const handleRefresh = () => {
+    setRefresh((refresh) => !refresh);
   };
+
+  const handleGoalRefresh = () => {
+    setGoalRefresh((goalRefresh) => !goalRefresh);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     const fetchGoals = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/goals/family/${familyId}`,
-          {
+        const [goalResponse, familyResponse] = await axios.all([
+          axios.get(`http://localhost:3000/api/goals/family/${familyId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
-        );
-        setGoals(response.data);
+          }),
+          axios.get(`http://localhost:3000/api/families/${familyId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
+        ]);
+
+        setGoals(goalResponse.data);
+        setFamily(familyResponse.data);
       } catch (error) {
-        console.log("Failed to fetch goals:", error);
+        console.log(error);
       }
     };
     fetchGoals();
-  }, [refreshGoalList]);
+  }, [refresh, goalRefresh]);
 
   return (
     <ProtectedRoute>
@@ -40,15 +59,33 @@ const Family = () => {
         <div className="p-10">
           <div>
             <div className="flex flex-row justify-between">
-              <h1 className="text-3xl">Goals:</h1>
-              <CreateGoalModal
-                familyId={familyId || ""}
-                onGoalAdd={handleRefreshGoalList}
-              />
+              <div className="flex flex-col space-y-5">
+                {/* @ts-ignore */}
+                <AvatarGroup members={family.members || []} />
+                <h1 className="text-3xl">
+                  {/* @ts-ignore */}
+                  {family.name}'s Goals:
+                </h1>
+              </div>
+              <div className="flex flex-row space-x-2">
+                <AddMemberModal
+                  familyId={familyId || ""}
+                  onMemberAdd={handleRefresh}
+                />
+                <CreateGoalModal
+                  familyId={familyId || ""}
+                  onGoalAdd={handleRefresh}
+                />
+              </div>
             </div>
-            <div className="py-10 grid grid-cols-3 gap-10">
+            <div className="py-10 grid sm:grid-cols-3 grid-cols-1 gap-10">
               {goals.map((goal, index) => (
-                <GoalCard key={index} goal={goal} />
+                <GoalCard
+                // @ts-ignore
+                  key={goal._id}
+                  goal={goal}
+                  handleGoalRefresh={handleGoalRefresh}
+                />
               ))}
             </div>
           </div>

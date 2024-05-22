@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axios from "axios";
 import {
   CreateFamilyModal,
@@ -8,12 +8,14 @@ import {
 } from "../../components";
 
 const Dashboard = () => {
+  const userName = localStorage.getItem("userName");
   const [families, setFamilies] = useState([]);
+  
 
-  const [refreshFamilyList, setRefreshFamilyList] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
-  const handleRefreshFamilyList = () => {
-    setRefreshFamilyList((refreshFamilyList) => !refreshFamilyList);
+  const handleRefresh = () => {
+    setRefresh((refresh) => !refresh);
   };
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -26,11 +28,11 @@ const Dashboard = () => {
         });
         setFamilies(response.data);
       } catch (error) {
-        console.error("Failed to fetch families:", error);
+        console.log("Failed to fetch information:"+ error);
       }
     };
     fetchFamilies();
-  }, [refreshFamilyList]);
+  }, [refresh]);
 
   return (
     <ProtectedRoute>
@@ -39,10 +41,10 @@ const Dashboard = () => {
         <div className="p-10">
           <div>
             <div className="flex flex-row justify-between">
-              <h1 className="text-3xl">Families:</h1>
-              <CreateFamilyModal onFamilyAdd={handleRefreshFamilyList} />
+              <h1 className="text-3xl">{userName}'s Families:</h1>
+              <CreateFamilyModal onFamilyAdd={handleRefresh} />
             </div>
-            <div className="py-10 grid grid-cols-3 gap-10">
+            <div className="py-10 grid sm:grid-cols-3 grid-cols-1 gap-10">
               {families.map((family, index) => (
                 <FamilyCard key={index} family={family} />
               ))}

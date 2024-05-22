@@ -10,6 +10,11 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    navigate("/dashboard");
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -33,7 +38,7 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center">
+      <div className="flex justify-center py-20">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-4 rounded-box p-6 max-w-md "
