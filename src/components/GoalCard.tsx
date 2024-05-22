@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import AvatarGroup from "./AvatarGroup";
 import CreateContributionModal from "./CreateContributionModal";
+import { config } from "../config/config";
 
 const GoalCard = ({
   goal,
@@ -29,7 +30,7 @@ const GoalCard = ({
     const fetchGoalProgress = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/goals/progress/${goal._id}`,
+          `${config.BACKEND_URL}/api/goals/progress/${goal._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

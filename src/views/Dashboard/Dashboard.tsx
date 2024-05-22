@@ -6,6 +6,7 @@ import {
   ProtectedRoute,
   UserNavbar,
 } from "../../components";
+import { config } from "../../config/config";
 
 const Dashboard = () => {
   const userName = localStorage.getItem("userName");
@@ -21,7 +22,7 @@ const Dashboard = () => {
     const token = localStorage.getItem("access_token");
     const fetchFamilies = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/families", {
+        const response = await axios.get(`${config.BACKEND_URL}/api/families`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

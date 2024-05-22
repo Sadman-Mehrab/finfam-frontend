@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { config } from "../config/config";
 
 const CreateContributionModal = ({
   onContributionAdd,
@@ -29,7 +30,7 @@ const CreateContributionModal = ({
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/contributions",
+        `${config.BACKEND_URL}/api/contributions`,
         { amount, goalId },
         {
           headers: {

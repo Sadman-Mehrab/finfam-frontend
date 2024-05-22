@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar } from "../../components";
+import { config } from "../../config/config";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/users/sign-up",
+        `${config.BACKEND_URL}/api/users/sign-up`,
         { userName, email, password }
       );
 

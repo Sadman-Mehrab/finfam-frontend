@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { config } from "../config/config";
 
 const AddMemberModal = ({
   familyId,
@@ -27,7 +28,7 @@ const AddMemberModal = ({
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/families/join/${familyId}`,
+        `${config.BACKEND_URL}/api/families/join/${familyId}`,
         { memberUserName },
         {
           headers: {

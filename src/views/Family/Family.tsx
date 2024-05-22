@@ -9,6 +9,7 @@ import {
   GoalCard,
 } from "../../components";
 import { useParams } from "react-router-dom";
+import { config } from "../../config/config";
 
 const Family = () => {
   const { familyId } = useParams();
@@ -31,12 +32,12 @@ const Family = () => {
     const fetchGoals = async () => {
       try {
         const [goalResponse, familyResponse] = await axios.all([
-          axios.get(`http://localhost:3000/api/goals/family/${familyId}`, {
+          axios.get(`${config.BACKEND_URL}/api/goals/family/${familyId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }),
-          axios.get(`http://localhost:3000/api/families/${familyId}`, {
+          axios.get(`${config.BACKEND_URL}/api/families/${familyId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

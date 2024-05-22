@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { config } from "../config/config";
 
 const CreateFamilyModal = ({ onFamilyAdd }: { onFamilyAdd: any }) => {
   const [name, setName] = useState("");
@@ -21,7 +22,7 @@ const CreateFamilyModal = ({ onFamilyAdd }: { onFamilyAdd: any }) => {
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/families",
+        `${config.BACKEND_URL}/api/families`,
         { name },
         {
           headers: {

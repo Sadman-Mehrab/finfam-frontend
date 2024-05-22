@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { config } from "../config/config";
 
 const CreateGoalModal = ({
   onGoalAdd,
@@ -29,7 +30,7 @@ const CreateGoalModal = ({
     const token = localStorage.getItem("access_token");
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/goals",
+        `${config.BACKEND_URL}/api/goals`,
         { name, totalAmount, familyId },
         {
           headers: {
