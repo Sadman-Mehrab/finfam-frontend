@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+# FinFam : Family Oriented Financial Goal Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+progress through your family's financial goals together, one contribution at a time. 🤗
 
-Currently, two official plugins are available:
+# Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![1](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/d0430439-34af-47e2-a337-7ee9d0fe489c)
 
-## Expanding the ESLint configuration
+![2](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/642592c9-b0df-45e9-b819-5ceaaff9e48f)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![3](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/81384d0f-4908-4984-9e79-f62489a257d7)
 
-- Configure the top-level `parserOptions` property like this:
+![4](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/79195293-acbc-4b0f-ad2a-fd51be04030d)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+![5](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/c6307d47-615b-4ec8-8939-fd7dad91d7f7)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+![6](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/fb1c4a7a-30d1-43ab-b1b1-d4ff36335310)
+
+![7](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/8c22dbcb-bc72-4d8f-bacc-b03c9f006960)
+
+![8](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/33b080fc-d6ac-40a6-8edf-f7fffcd6c615)
+
+![9](https://github.com/Sadman-Mehrab/finfam-frontend/assets/87429921/902e0198-bf81-425a-b748-40e733ef34e2)
