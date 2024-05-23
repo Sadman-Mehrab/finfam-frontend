@@ -25,8 +25,8 @@ const AddMemberModal = ({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const token = localStorage.getItem("access_token");
     try {
+      const token = localStorage.getItem("access_token");
       const response = await axios.patch(
         `${config.BACKEND_URL}/api/families/join/${familyId}`,
         { memberUserName },
@@ -51,7 +51,7 @@ const AddMemberModal = ({
         // @ts-ignore
         onClick={showModal}
       >
-        + New Member
+        New Member
       </button>
       <dialog id="addMemberModal" className="modal">
         <div className="modal-box">

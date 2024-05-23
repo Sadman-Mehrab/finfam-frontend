@@ -18,6 +18,7 @@ const Dashboard = () => {
   const handleRefresh = () => {
     setRefresh((refresh) => !refresh);
   };
+
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     const fetchFamilies = async () => {
@@ -42,12 +43,12 @@ const Dashboard = () => {
         <div className="p-10">
           <div>
             <div className="flex flex-row justify-between">
-              <h1 className="text-3xl">{userName}'s Families:</h1>
+              <h1 className="text-3xl">{userName || "User"}'s Families:</h1>
               <CreateFamilyModal onFamilyAdd={handleRefresh} />
             </div>
             <div className="py-10 grid sm:grid-cols-3 grid-cols-1 gap-10">
               {families.map((family, index) => (
-                <FamilyCard key={index} family={family} />
+                <FamilyCard key={index} family={family} onFamilyDelete={handleRefresh} />
               ))}
             </div>
           </div>

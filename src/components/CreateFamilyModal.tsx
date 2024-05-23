@@ -19,8 +19,9 @@ const CreateFamilyModal = ({ onFamilyAdd }: { onFamilyAdd: any }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const token = localStorage.getItem("access_token");
     try {
+      const token = localStorage.getItem("access_token");
+      console.log(token);
       const response = await axios.post(
         `${config.BACKEND_URL}/api/families`,
         { name },

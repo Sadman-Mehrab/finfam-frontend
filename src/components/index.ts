@@ -8,4 +8,5 @@ export { default as FamilyAvatar } from "./FamilyAvatar";
 export { default as AvatarGroup } from "./AvatarGroup";
 export { default as CreateFamilyModal } from "./CreateFamilyModal";
 export { default as CreateGoalModal } from "./CreateGoalModal";
+export { default as CreateContributionModal } from "./CreateContributionModal";
 export { default as AddMemberModal } from "./AddMemberModal";

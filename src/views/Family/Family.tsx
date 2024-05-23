@@ -8,10 +8,13 @@ import {
   UserNavbar,
   GoalCard,
 } from "../../components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { config } from "../../config/config";
+import toast from "react-hot-toast";
 
 const Family = () => {
+  const navigate = useNavigate();
+
   const { familyId } = useParams();
   const [family, setFamily] = useState({});
   const [goals, setGoals] = useState([]);
@@ -25,6 +28,42 @@ const Family = () => {
 
   const handleGoalRefresh = () => {
     setGoalRefresh((goalRefresh) => !goalRefresh);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      await axios.delete(`${config.BACKEND_URL}/api/families/${familyId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Deleted!");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error("You do not have permission to delete this family!");
+      console.log(error);
+    }
+  };
+
+  const handleLeave = async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      await axios.patch(
+        `${config.BACKEND_URL}/api/families/leave/${familyId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Left family!");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error("Something went wrong!");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -65,24 +104,39 @@ const Family = () => {
                 <AvatarGroup members={family.members || []} />
                 <h1 className="text-3xl">
                   {/* @ts-ignore */}
-                  {family.name}'s Goals:
+                  {family.name || "Family"}'s Goals:
                 </h1>
               </div>
               <div className="flex flex-row space-x-2">
-                <AddMemberModal
-                  familyId={familyId || ""}
-                  onMemberAdd={handleRefresh}
-                />
                 <CreateGoalModal
                   familyId={familyId || ""}
                   onGoalAdd={handleRefresh}
                 />
+                <AddMemberModal
+                  familyId={familyId || ""}
+                  onMemberAdd={handleRefresh}
+                />
+
+                <button
+                  className="btn bg-secondary"
+                  // @ts-ignore
+                  onClick={handleDelete}
+                >
+                  Delete Family
+                </button>
+                <button
+                  className="btn bg-secondary"
+                  // @ts-ignore
+                  onClick={handleLeave}
+                >
+                  Leave Family
+                </button>
               </div>
             </div>
             <div className="py-10 grid sm:grid-cols-3 grid-cols-1 gap-10">
               {goals.map((goal, index) => (
                 <GoalCard
-                // @ts-ignore
+                  // @ts-ignore
                   key={goal._id}
                   goal={goal}
                   handleGoalRefresh={handleGoalRefresh}

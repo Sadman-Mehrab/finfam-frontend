@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const token = localStorage.getItem("access_token");
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -15,12 +17,18 @@ const Navbar = () => {
               Launch App
             </Link>
           </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
+          {!token && (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
+          {!token && (
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+          )}
+          
+
         </ul>
       </div>
     </div>

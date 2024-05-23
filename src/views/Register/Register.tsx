@@ -11,11 +11,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const token = localStorage.getItem("access_token");
-  if (token) {
-    navigate("/dashboard");
-  }
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -24,9 +19,6 @@ const Register = () => {
         `${config.BACKEND_URL}/api/users/sign-up`,
         { userName, email, password }
       );
-
-      localStorage.setItem("access_token", response.data.access_token);
-      localStorage.setItem("userName", response.data.userName);
 
       toast.success("Registered!");
       navigate("/login");
@@ -80,6 +72,8 @@ const Register = () => {
               className="input input-bordered"
               value={email}
               required
+              pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+              title="Must be a valid email address"
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
@@ -103,7 +97,7 @@ const Register = () => {
           </label>
 
           <button type="submit" className="btn btn-primary">
-            Log in
+            Register
           </button>
         </form>
       </div>

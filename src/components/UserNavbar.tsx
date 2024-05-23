@@ -27,7 +27,7 @@ const UserNavbar = () => {
             </Link>
           </li>
           <li>
-            <button onClick={handleLogout} className="btn btn-circle bg-red-100">
+            <button onClick={handleLogout} className="btn btn-circle btn-secondary">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

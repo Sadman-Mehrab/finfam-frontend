@@ -10,11 +10,6 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const token = localStorage.getItem("access_token");
-  if (token) {
-    navigate("/dashboard");
-  }
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 

@@ -27,8 +27,8 @@ const CreateGoalModal = ({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const token = localStorage.getItem("access_token");
     try {
+      const token = localStorage.getItem("access_token");
       const response = await axios.post(
         `${config.BACKEND_URL}/api/goals`,
         { name, totalAmount, familyId },
@@ -53,7 +53,7 @@ const CreateGoalModal = ({
         // @ts-ignore
         onClick={showModal}
       >
-        + New Goal
+        New Goal
       </button>
       <dialog id="createGoalModal" className="modal">
         <div className="modal-box">
@@ -91,8 +91,9 @@ const CreateGoalModal = ({
                 id="totalAmount"
                 className="input input-bordered"
                 value={totalAmount}
+                min={1}
                 required
-                onChange={(e) => setTotalAmount(+(e.target.value))}
+                onChange={(e) => setTotalAmount(+e.target.value)}
               />
             </label>
 
